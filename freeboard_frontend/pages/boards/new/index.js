@@ -22,7 +22,39 @@ import {
           Warning,
       } from '../../../styles/BoardsNewPageStyle'
 
+import { useState } from 'react';
 
+export default function BoardsNewPage() {
+  const [title, setTitle] = useState('')
+  const [content, setContent] = useState('')
+  const [warningEmptyTitle, setWarningEmptyTitle] = useState('')
+  const [warningEmptyContent, setWarningEmptyContent] = useState('')
+
+  const [button, setButton] = useState('')
+
+
+  function checkTitle(e) {
+    setTitle(e.target.value)
+  }
+
+  function checkContent(e) {
+    setContent(e.target.value)
+  }
+
+  function checkValidation() {
+    if (content === '') {
+      setWarningEmptyContent('내용을 입력해주세요')
+    }
+
+    if (title === '') {
+      setWarningEmptyTitle('제목을 입력해주세요')
+    }
+
+    if (content && title) {
+      setWarningEmptyContent('')
+      setWarningEmptyTitle('')
+    }
+  }
 
   return (
     <Wrapper>
