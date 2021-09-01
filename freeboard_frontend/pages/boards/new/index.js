@@ -1,7 +1,27 @@
-import {Wrapper, HeaderTitle, Title, Label, Textarea, Address, Post_Address, Post_Input, Post_btn, Input, Youtube_box, Upload_box, Upload, Upload_content1, Upload_content2, Attach_photo, Radio_Btn, Submit_Box, Submit} from '../../../styles/BoardsNewPageStyle'
+import {  
+          Wrapper, 
+          HeaderTitle, 
+          Title, 
+          Label, 
+          Textarea, 
+          Address, 
+          PostNumber, 
+          Post_Address, 
+          Post_Input, 
+          Post_btn, 
+          Input, 
+          Youtube_box, 
+          Upload_box, 
+          Upload, 
+          Upload_content1, 
+          Upload_content2, 
+          Attach_photo, 
+          Radio_Btn, 
+          Submit_Box, 
+          Submit, 
+          Warning,
+      } from '../../../styles/BoardsNewPageStyle'
 
-
-export default function BoardsNewPage() {
 
 
   return (
@@ -9,11 +29,13 @@ export default function BoardsNewPage() {
       <HeaderTitle>게시물 등록</HeaderTitle>
       <Title>
         <Label htmlFor="title">제목</Label>
-        <Input id="title" type="text" placeholder="제목을 입력해주세요."/>
+        <Input onChange={ checkTitle } id="title" type="text" placeholder="제목을 입력해주세요."/>
+        <Warning>{warningEmptyTitle}</Warning>
       </Title>
       <Title>
         <Label htmlFor="">내용</Label>
-        <Textarea name="" id="" cols="30" rows="10" placeholder="내용을 작성해주세요."></Textarea>
+        <Textarea onChange={ checkContent } name="" id="" cols="30" rows="10" placeholder="내용을 작성해주세요."></Textarea>
+        <Warning>{warningEmptyContent}</Warning>
       </Title>
       <Address>
         <Label htmlFor="">주소</Label>
@@ -52,7 +74,7 @@ export default function BoardsNewPage() {
           <Radio_Btn type="radio" name="content" value="사진"/> 사진
         </div>
         <Submit_Box>
-          <Submit type="submit">등록하기</Submit>
+          <Submit type="submit" onClick= { checkValidation }>등록하기</Submit>
         </Submit_Box>
       </Attach_photo>
     </Wrapper>

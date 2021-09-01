@@ -37,6 +37,14 @@ export const Textarea = styled.textarea`
   }
 `
 
+export const Warning = styled.div`
+  height: 20px;
+  font-size: 15px;
+  color: red;
+`
+
+
+
 export const Address = styled.div`
   display: flex;
   flex-direction: column;
