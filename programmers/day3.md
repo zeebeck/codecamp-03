@@ -21,7 +21,7 @@
 >
 > **`예상 결과`**
 >
-> ```jsx
+> ```js
 > boolean(true, false) // true
 > boolean(false, true) // true
 > boolean(false, false) // false
@@ -66,7 +66,7 @@
 >
 > **`예상 결과`**
 >
-> ```jsx
+> ```js
 > evenOdd(12) // "Even"
 > evenOdd(15) // "Odd"
 > evenOdd(0)  // "Zero"
@@ -121,7 +121,7 @@
 >
 > **`예상 결과`**
 >
-> ```jsx
+> ```js
 > temperature(13)  // "조금 춥네요"
 > temperature(23)  // "날씨가 좋네요"
 > temperature(27)  // "조금 덥습니다"
@@ -172,7 +172,7 @@
 >
 > **`예상 결과`**
 >
-> ```jsx
+> ```js
 > days(1) // 31
 > days(2) // 28
 > days(4) // 30
@@ -210,4 +210,3 @@
 > 	  }
 > }
 > ```
-

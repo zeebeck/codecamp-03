@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 export const Wrapper = styled.div`
   width: 639px;
   margin: auto;
-  background: #5AA08D;
+  background-image: url('/itroad.png');
 `
 export const Header = styled.div`
   display: flex;
@@ -30,6 +30,7 @@ export const MainContent = styled.div`
 
 export const Input = styled.input`
   border: none; 
+  color: white;
   background: transparent;
   width: 540px;
   height: 40px;
