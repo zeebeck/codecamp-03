@@ -2,8 +2,6 @@
 
 #### 41. 조건문 실전 적용 - 점수에 따른 등급
 
-> 
->
 > **`문제 설명`**
 >
 > <img width="365" alt="1" src="https://user-images.githubusercontent.com/79819941/131931392-4936ee36-0b52-441f-b6ad-2f761bfed37d.png"> 
@@ -72,8 +70,10 @@
 > // "A"
 > ```
 
-#### 43. 마이페이지**`문제 설명`**
+#### 43. 마이페이지
 
+> **`문제 설명`**
+>
 > ![2](https://user-images.githubusercontent.com/79819941/131932281-3fc9952c-c1cd-47a7-a41c-3f3d869c5606.png) 
 >
 > 오른쪽 myShooping은 내가 구매한 목록을 보여주고 있습니다.
@@ -95,19 +95,19 @@
 > **`주의 사항`**
 >
 > - 반복문을 통해 문제를 풀어야 합니다.
->- myShopping 내용을 직접 수정하면 안 됩니다.
+> - myShopping 내용을 직접 수정하면 안 됩니다.
 > - 예상 결과에 나온 문구와 형식이 같아야 합니다.
-> 
+>
 > **`예상 결과`**
 >
 > ```m
->의류를 구매한 횟수는 총 5회 금액은 57000원이며 등급은 Gold입니다.
+> 의류를 구매한 횟수는 총 5회 금액은 57000원이며 등급은 Gold입니다.
 > ```
-> 
+>
 > **My Answer**
 >
 > ```js
->const myShopping = [
+> const myShopping = [
 > 		{ category: "과일", price: 12000　},
 > 		{ category: "의류", price:10000　 },
 > 		{ category: "의류", price: 20000　},
@@ -121,12 +121,16 @@
 > ]
 > 
 > let count = (myShopping.length - 1)
+> // length 메서드를 이용하여 myShopping 객체의 count 총갯수 확인
 > 
 > let price = myShopping.reduce((acc, cur) => {
 >   return acc + cur.price
 > }, 0)
+> // reduce 메서드를 통해 myShopping 객체의 price 객체의 value 값의 합 확인
 > 
 > let grade = ((count > 0 && count < 3) ? "Bronze" : (count > 2 && count < 5) ? "Silver" : (count > 4) ? "Gold" : "해당 등급이 없습니다.")
+> // 삼항연산자를 통한 회원 등급 정보 확인
+> 
 > 
 > console.log("의류를 구매한 횟수는 총 " + count + "회 금액은 " + price + "원이며 등급은 " + grade + "입니다.")
 > 
