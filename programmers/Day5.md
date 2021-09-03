@@ -47,7 +47,7 @@
 > ```js
 > function grade(score) {
 >   let result = "";
->   
+> 
 >   if (score >= 90 && score === 100) {
 >     result = "A"
 >   } else if (score >= 80 && score <= 89) {
@@ -65,12 +65,15 @@
 > }
 > 
 > grade(-1)
+> // 잘못된 점수입니다.
+> grade(10000)
+> // 잘못된 점수입니다.
+> grade(100)
+> // "A"
 > ```
 
-#### 43. 마이페이지
+#### 43. 마이페이지**`문제 설명`**
 
-> **`문제 설명`**
->
 > ![2](https://user-images.githubusercontent.com/79819941/131932281-3fc9952c-c1cd-47a7-a41c-3f3d869c5606.png) 
 >
 > 오른쪽 myShooping은 내가 구매한 목록을 보여주고 있습니다.
@@ -92,19 +95,19 @@
 > **`주의 사항`**
 >
 > - 반복문을 통해 문제를 풀어야 합니다.
-> - myShopping 내용을 직접 수정하면 안 됩니다.
+>- myShopping 내용을 직접 수정하면 안 됩니다.
 > - 예상 결과에 나온 문구와 형식이 같아야 합니다.
->
+> 
 > **`예상 결과`**
 >
 > ```m
-> 의류를 구매한 횟수는 총 5회 금액은 57000원이며 등급은 Gold입니다.
+>의류를 구매한 횟수는 총 5회 금액은 57000원이며 등급은 Gold입니다.
 > ```
->
+> 
 > **My Answer**
 >
 > ```js
-> const myShopping = [
+>const myShopping = [
 > 		{ category: "과일", price: 12000　},
 > 		{ category: "의류", price:10000　 },
 > 		{ category: "의류", price: 20000　},
