@@ -7,7 +7,6 @@ import {
           Address, 
           PostNumber, 
           Post_Address, 
-          Post_Input, 
           Post_btn, 
           Input, 
           Youtube_box, 
@@ -22,16 +21,36 @@ import {
           Warning,
       } from '../../../styles/BoardsNewPageStyle'
 
+
+
+
+
 import { useState } from 'react';
+import { useMutation, gql } from '@apollo/client'
+
+const CREATE_BOARD = gql`
+  mutation ($createBoardInput:CreateBoardInput!) {
+    createBoard(createBoardInput: $createBoardInput) {
+      _id
+      title
+      contents
+    }
+}
+`
 
 export default function BoardsNewPage() {
+
+  
+
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
+  const [youtube, setYoutube] = useState('')
+
   const [warningEmptyTitle, setWarningEmptyTitle] = useState('')
   const [warningEmptyContent, setWarningEmptyContent] = useState('')
 
-  const [button, setButton] = useState('')
 
+  const [button, setButton] = useState('')
 
   function checkTitle(e) {
     setTitle(e.target.value)
@@ -39,6 +58,10 @@ export default function BoardsNewPage() {
 
   function checkContent(e) {
     setContent(e.target.value)
+  }
+
+  function checkYoutube(e) {
+    setYoutube(e.target.value)
   }
 
   function checkValidation() {
@@ -54,6 +77,21 @@ export default function BoardsNewPage() {
       setWarningEmptyContent('')
       setWarningEmptyTitle('')
     }
+  }
+
+  const [creatBoard] = useMutation(CREATE_BOARD) 
+
+  async function CreateBoardAPI() {
+    const result = await creatBoard({
+      variables: {
+        createBoardInput: {
+          title: title,
+          contents: content,
+          youtubeUrl: youtube,
+        }
+      }
+    })
+    console.log(result)
   }
 
   return (
@@ -82,7 +120,7 @@ export default function BoardsNewPage() {
       </Address>
       <Youtube_box>
         <Label htmlFor="">유튜브</Label>
-        <Input type="text" placeholder="링크를 복사해주세요."/>
+        <Input onChange={ checkYoutube } type="text" placeholder="링크를 복사해주세요."/>
       </Youtube_box>
       <Attach_photo>
         <Label htmlFor="">사진 첨부</Label>
@@ -106,7 +144,7 @@ export default function BoardsNewPage() {
           <Radio_Btn type="radio" name="content" value="사진"/> 사진
         </div>
         <Submit_Box>
-          <Submit type="submit" onClick= { checkValidation }>등록하기</Submit>
+          <Submit type="submit" onClick= { CreateBoardAPI, checkValidation }>등록하기</Submit>
         </Submit_Box>
       </Attach_photo>
     </Wrapper>
