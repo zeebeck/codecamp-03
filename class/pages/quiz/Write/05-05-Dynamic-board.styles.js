@@ -5,5 +5,5 @@ export const Input = styled.input`
 `
 
 export const Button = styled.button`
-  background: brown;
+  background-color: ${(props) => (props.qqq === true ? 'red' : 'white')};
 `
