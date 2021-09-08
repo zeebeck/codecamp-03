@@ -52,6 +52,7 @@ function solution(seoul) {
 ##### 내 풀이
 
 ```js
+# indexOf 메소드 사용
 function solution(s) {
     var answer = true;
     if ((s.length == 4 || s.length == 6) && (+s == parseInt(s))) {
@@ -60,6 +61,13 @@ function solution(s) {
         answer = false;
     }
     return answer;
+}
+
+# filter 메소드 사용
+function solution(seoul) {
+  let answer = '';
+  seoul.filter((item, index) => (item === "Kim") ? answer = index: "")
+  return `김서방은 ${answer}에 있다`
 }
 ```
 
