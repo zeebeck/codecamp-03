@@ -17,6 +17,9 @@ import {
   Footer,
   ThumbUp,
   ThumbDown,
+  BottomWrapper,
+  Button,
+
 } from './BoardDetail.styles';
 
 
@@ -53,6 +56,11 @@ export default function BoardDetailUI(props) {
           <img src="../../thumbdown.png" alt="" />1993 
         </ThumbDown>
       </Footer>
+      <BottomWrapper>
+        <Button onClick={ props.ClickMoveToList }>목록으로</Button>
+        <Button onClick={ props.ClickMoveToEdit }>수정하기</Button>
+        <Button onClick={ props.ClickDelete }>삭제하기</Button>
+      </BottomWrapper>
     </Wrapper>
   )
 }

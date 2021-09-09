@@ -23,7 +23,9 @@ import {
   Submit_Box,
   Radio_Btn,
   Submit,
-
+  SubmitButton,
+  CancelButton,
+  ButtonWrapper,
 } from './BoardEnroll.styles'
 
 
@@ -31,7 +33,7 @@ import {
 export default function BoardEnrollUI(props) {
   return (
     <Wrapper>
-        <HeaderTitle>게시판 등록</HeaderTitle>
+        <HeaderTitle>{props.isEdit ? "게시판 수정" : "게시판 등록"}</HeaderTitle>
         <WriterWrapper>
           <InputWrapper>
             <Label htmlFor="writer">작성자</Label>
@@ -103,9 +105,18 @@ export default function BoardEnrollUI(props) {
           <Radio_Btn type="radio" name="content" checked="checked" value="유튜브"/> 유튜브
           <Radio_Btn type="radio" name="content" value="사진"/> 사진
         </div>
-        <Submit_Box>
-          <Submit type="submit" onClick= { props.clickSubmit }>등록하기</Submit>
-        </Submit_Box>
+        <ButtonWrapper>
+          { !props.isEdit && (
+            <SubmitButton onClick={ props.clickSubmit } isActive={ props.isActive } disabled={ !props.isActive }>
+              등록하기
+            </SubmitButton>
+          )}
+          { props.isEdit && (
+            <SubmitButton onClick={ props.ClickUpdate } isActive={ true }>
+              수정하기
+            </SubmitButton>
+          )}
+        </ButtonWrapper>
         </Attach_photo>
     </Wrapper>
   );

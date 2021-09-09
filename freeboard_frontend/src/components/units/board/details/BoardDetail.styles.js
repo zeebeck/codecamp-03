@@ -93,3 +93,25 @@ export const ThumbDown = styled.div`
   align-items: center;
   margin-right: 270px;
 `
+
+export const BottomWrapper = styled.div`
+  padding-top: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+`;
+
+export const Button = styled.button`
+  width: 179px;
+  height: 45px;
+  background-color: white;
+  border: 1px solid gray;
+  margin: 0px 10px;
+  cursor: pointer;
+
+  :hover {
+    background-color: gold;
+    border-color: white;
+  }
+`

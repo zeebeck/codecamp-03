@@ -2,11 +2,11 @@ import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import BoardEnrollUI from "./BoardEnroll.presenter";
-import { CREATE_BOARD } from "./BoardEnroll.queries";
+import { CREATE_BOARD, UPDATE_BOARD } from "./BoardEnroll.queries";
   
 
 
-export default function BoardEnroll() {
+export default function BoardEnroll(props) {
   const [writer, setWriter] = useState('')
   const [password, setPassword] = useState('')
   const [title, setTitle] = useState('')
@@ -18,12 +18,21 @@ export default function BoardEnroll() {
   const [warningEmptyContent, setWarningEmptyContent] = useState('')
 
   const [ createBoard ] = useMutation(CREATE_BOARD)
+  const [ updateBoard ] = useMutation(UPDATE_BOARD)
+
   const router = useRouter()
+  const [ isActive, setIsActive ] = useState(false)
 
   function checkWriter(e) {
     setWriter(e.target.value)
     if(e.target.value !== "") {
       setWarningEmptyWriter("")
+    }
+
+    if(e.target.value !== "" && password !== "" && title !== "" && contents !== "") {
+      setIsActive(true)
+    } else {
+      setIsActive(false)
     }
   }
 
@@ -32,6 +41,12 @@ export default function BoardEnroll() {
     if(e.target.value !== "") {
       setWarningPasswordError("")
     }
+
+    if(writer !== "" && e.target.value !== "" && title !== "" && contents !== ""){
+      setIsActive(true)
+    } else {
+      setIsActive(false)
+    }
   }
 
   function checkTitle(e) {
@@ -39,12 +54,23 @@ export default function BoardEnroll() {
     if(e.target.value !== "") {
       setWarningEmptyTitle("")
     }
+    if(writer !== "" && password !== "" && e.target.value !== "" && contents !== "") {
+      setIsActive(true)
+    } else {
+      setIsActive(false)
+    }
   }
 
   function checkContent(e) {
     setContents(e.target.value)
     if(e.target.value !== "") {
       setWarningEmptyContent("")
+    }
+
+    if(writer !== "" && password !== "" && title !== "" && e.target.value !== "") {
+      setIsActive(true)
+    } else {
+      setIsActive(false)
     }
   }
 
@@ -66,31 +92,46 @@ export default function BoardEnroll() {
     }
    
     if(writer !== "" && password !== "" && title !== "" && contents !== "") {
-      alert('게시물이 등록되었습니다.')
+      try {
+        const result = await createBoard({
+          variables: {
+            createBoardInput: {
+              writer: writer,
+              password: password,
+              title: title,
+              contents: contents,
+            },
+          },
+        });
+        // console.log(result.data.createBoard._id)
+        router.push(`/boards/${result.data.createBoard._id}`)
+      } catch(e){
+        console.log(e)
       }
+    }
+  }
 
 
-    try{
-      const result = await createBoard({
+  async function ClickUpdate(){
+    try {
+      const result = await updateBoard({
         variables: {
-          createBoardInput: {
-            writer: writer,
-            password: password,
-            title: title,
-            contents: contents,
-          }
-        }
-
-      })
-
-      router.push(`/boards/Details/${result.data.createBoard._id}`)
-    } catch(e) {
-      console.log(e)
+          boardId: router.query.url,
+          password: password,
+          updateBoardInput: { title: title, contents: contents, },
+        },
+      });
+      alert("수정되었습니다")
+      router.push(`/boards/${result.data.updateBoard._id}`)
+    } catch(e){
+      // console.log(err.message)
+      alert(e.message)
     }
   }
 
   return (
     <BoardEnrollUI 
+      isActive={ isActive }
       checkWriter= { checkWriter }
       checkPassword= { checkPassword }
       checkTitle= { checkTitle }
@@ -100,6 +141,9 @@ export default function BoardEnroll() {
       warningPasswordError= { warningPasswordError }  
       warningEmptyTitle= { warningEmptyTitle }
       warningEmptyContent= { warningEmptyContent }
+
+      isEdit={ props.isEdit }
+      ClickUpdate={ ClickUpdate }
     />
   )
 }

@@ -165,3 +165,34 @@ export const Submit = styled.button`
   width: 130px;
   height: 42px;
 `
+
+export const ButtonWrapper = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	padding-top: 80px;
+`;
+
+export const CancelButton = styled.button`
+	width: 179px;
+	height: 52px;
+	background-color: #bdbdbd;
+	border: none;
+	font-size: 16px;
+	font-weight: 500;
+	margin-left: 12px;
+	margin-right: 12px;
+	cursor: pointer;
+`;
+
+export const SubmitButton = styled.button`
+	width: 179px;
+	height: 52px;
+	background-color: ${(props) => props.isActive ? "yellow" : "gray"};
+	border: none;
+	font-size: 16px;
+	font-weight: 500;
+	margin-left: 12px;
+	margin-right: 12px;
+	cursor: ${(props) => props.isActive ? "pointer" : "default"};
+`;
