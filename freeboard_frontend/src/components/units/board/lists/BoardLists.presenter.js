@@ -8,7 +8,7 @@ import {
   ColumnBasic,
   ColumnTitle,
   Footer,
-  PencilIcon,
+  PencilImg,
   Button,
 } from "./BoardLists.styles";
 
@@ -37,7 +37,7 @@ export default function BoardListsUI(props) {
       <TableBottom />
       <Footer>
         <Button onClick={props.ClickMoveToBoardNew}>
-          <PencilIcon src="./write.png" />
+          <PencilImg src="./write.png" />
           게시물 등록하기
         </Button>
       </Footer>

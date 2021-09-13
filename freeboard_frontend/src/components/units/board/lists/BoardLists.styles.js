@@ -61,22 +61,23 @@ export const Footer = styled.div`
 
 
 
-export const PencilIcon = styled.img``;
+
 export const Button = styled.button`
-  width: 171px;
-  height: 52px;
+  width: 150px;
+  height: 50px;
   cursor: pointer;
   background-color: white;
   border-radius: 17px;
   display: flex;
-  flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-
 
   :hover {
     background-color: #f5f2fc;
   }
 `;
+
+
+export const PencilImg = styled.img``;
 
 

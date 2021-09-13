@@ -121,7 +121,7 @@ export default function BoardEnroll(props) {
           updateBoardInput: { title: title, contents: contents, },
         },
       });
-      alert("수정되었습니다")
+      alert("수정 되었습니다")
       router.push(`/boards/${result.data.updateBoard._id}`)
     } catch(e){
       // console.log(err.message)

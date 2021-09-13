@@ -1,0 +1,8 @@
+schema: http://example.codebootcamp.co.kr/graphql
+generates:
+  ./src/commons/types/generated/types.d.ts:
+    plugins:
+      - typescript
+    config:
+      typesPrefix: I 
+// xml파일은 인덴팅에 따라 부모, 자식이 변경될 수 있기 때문에 인덴팅을 주의해서 작성해야 한다!!!!
