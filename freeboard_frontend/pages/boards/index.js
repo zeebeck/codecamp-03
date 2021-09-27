@@ -1,5 +1,5 @@
-import BoardLists from '../../src/components/units/board/lists/BoardLists.container'
+import BoardList from '../../src/components/units/board/list/BoardList.container'
 
 export default function BoardsPage(){
-    return <BoardLists />
+    return <BoardList />
 }
