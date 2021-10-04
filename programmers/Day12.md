@@ -152,4 +152,3 @@ function solution(arr, divisor) {
   return answer;
 }
 ```
-

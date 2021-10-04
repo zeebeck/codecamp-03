@@ -1,17 +1,13 @@
-
-
 export default function CounterLetPage() {
-
-  function IncreaseCount() {
-    let count = Number(document.getElementById("count").innerText) + 1;
-    document.getElementById('count').innerText = count;
+  function aaa() {
+    const count = Number(document.getElementById("number").innerText) + 1;
+    document.getElementById("number").innerText = count;
   }
-
 
   return (
     <>
-      <div id="count">0</div>
-      <button onClick= { IncreaseCount }>카운트증가</button>
+      <div id="number">0</div>
+      <button onClick={aaa}>카운트증가</button>
     </>
-  )
+  );
 }

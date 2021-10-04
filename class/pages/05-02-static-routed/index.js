@@ -1,7 +1,7 @@
-export default function StaticRoutedPage() {
-  return (
-    <>
-      <div>우린 반드시 할 수 있다!</div>
-    </>
-  )
+export default function StaticRoutedPage(){
+
+    return (
+        <div>페이지 이동 완료됨!!!</div>
+    )
+
 }
