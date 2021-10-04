@@ -5,8 +5,8 @@ import LayoutNavigationUI from "./LayoutNavigation.presenter";
 export default function LayoutNavigation() {
   const router = useRouter();
 
-  function onClickMenu(event) {
-    router.push(event.target.id);
+  function onClickMenu(e) {
+    router.push("/boards");
   }
 
   return <LayoutNavigationUI onClickMenu={onClickMenu} />;

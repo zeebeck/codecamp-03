@@ -21,6 +21,8 @@ import {
   DislikeCount,
   LinkIcon,
   LocationIcon,
+  Image,
+  ImageWrapper,
 } from "./BoardDetail.styles";
 import { Tooltip } from "antd";
 
@@ -33,9 +35,7 @@ export default function BoardDetailUI(props) {
             <Avatar src="/images/avatar.png" />
             <Info>
               <Writer>{props.data?.fetchBoard.writer}</Writer>
-              <CreatedAt>
-                {props.data?.fetchBoard.createdAt.slice(0, 10)}
-              </CreatedAt>
+              <CreatedAt>{props.data?.fetchBoard.createdAt}</CreatedAt>
             </Info>
           </AvatarWrapper>
           <IconWrapper>
@@ -50,6 +50,13 @@ export default function BoardDetailUI(props) {
         </Header>
         <Body>
           <Title>{props.data?.fetchBoard.title}</Title>
+          <ImageWrapper>
+            {props.data?.fetchBoard.images // ["고양이이미지.png", "강아지이미지.png"]     ""  " "
+              ?.filter((el: string) => el) // ["고양이이미지.png", "강아지이미지.png"]
+              .map((el: string) => (
+                <Image key={el} src={`https://storage.googleapis.com/${el}`} />
+              ))}
+          </ImageWrapper>
           <Contents>{props.data?.fetchBoard.contents}</Contents>
           <Youtube
             url={props.data?.fetchBoard.youtubeUrl}

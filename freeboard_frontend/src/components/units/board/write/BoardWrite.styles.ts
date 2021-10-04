@@ -18,7 +18,6 @@ export const Wrapper = styled.div`
 
 export const Title = styled.div`
   font-family: Arial, Helvetica, sans-serif;
-  color: yellow;
   font-size: 36px;
   font-weight: bold;
 `;
@@ -48,7 +47,6 @@ export const Password = styled.input`
 export const Label = styled.div`
   padding-bottom: 16px;
   font-size: 16px;
-  color: yellow;
   font-weight: 500;
 `;
 
@@ -140,6 +138,7 @@ export const RadioLabel = styled.label`
 
 export const ButtonWrapper = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: center;
   padding-top: 80px;
 `;
@@ -147,7 +146,7 @@ export const ButtonWrapper = styled.div`
 export const CancelButton = styled.button`
   width: 179px;
   height: 52px;
-  background-color: black;
+  background-color: #bdbdbd;
   border: none;
   font-size: 16px;
   font-weight: 500;
@@ -162,10 +161,9 @@ interface IProps {
 export const SubmitButton = styled.button`
   width: 179px;
   height: 52px;
-  border-radius: 15px;
-  background-color: ${(props: IProps) => (props.isActive ? "yellow" : "red")};
+  background-color: ${(props: IProps) => (props.isActive ? "yellow" : "gray")};
   border: none;
-  font-size: 22px;
+  font-size: 16px;
   font-weight: 500;
   margin-left: 12px;
   margin-right: 12px;

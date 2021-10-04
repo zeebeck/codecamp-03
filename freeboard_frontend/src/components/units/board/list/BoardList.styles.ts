@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
+import { ITextTokenProps } from "./BoardList.types";
 
 export const Wrapper = styled.div`
-  background-color: black;
-  color: yellow;
   width: 1200px;
   margin: 100px;
 `;
@@ -24,8 +23,12 @@ export const Row = styled.div`
   border-bottom: 1px solid gray;
 
   :hover {
-    color: white;
+    color: blue;
   }
+`;
+
+export const TextToken = styled.span`
+  color: ${(props: ITextTokenProps) => (props.isMatched ? "red" : "black")};
 `;
 
 export const ColumnHeaderBasic = styled.div`
@@ -49,8 +52,7 @@ export const ColumnTitle = styled.div`
   cursor: pointer;
 
   :hover {
-    color: white;
-    font-size: 18px;
+    color: blue;
   }
 `;
 
@@ -64,21 +66,17 @@ export const Footer = styled.div`
 export const PencilIcon = styled.img``;
 
 export const Button = styled.button`
-  @font-face {
-    font-family: "BTTF";
-    src: local("/Fonts/BTTF.ttf");
-  }
   width: 171px;
   height: 52px;
-  background-color: black;
+  background-color: white;
   border-radius: 15px;
   display: flex;
+  flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
   cursor: pointer;
 
   :hover {
-    background-color: white;
-    color: black;
+    background-color: #f5f2fc;
   }
 `;

@@ -29,16 +29,16 @@ export default function BoardCommentWrite(props) {
     IMutationUpdateBoardCommentArgs
   >(UPDATE_BOARD_COMMENT);
 
-  function onChangeMyWriter(e) {
-    setMyWriter(e.target.value);
+  function onChangeMyWriter(event) {
+    setMyWriter(event.target.value);
   }
 
-  function onChangeMyPassword(e) {
-    setMyPassword(e.target.value);
+  function onChangeMyPassword(event) {
+    setMyPassword(event.target.value);
   }
 
-  function onChangeMyContents(e) {
-    setMyContents(e.target.value);
+  function onChangeMyContents(event) {
+    setMyContents(event.target.value);
   }
 
   function onChangeStar(value) {
@@ -64,18 +64,19 @@ export default function BoardCommentWrite(props) {
           },
         ],
       });
-    } catch (e) {
-      alert(e.message);
+    } catch (error) {
+      alert(error.message);
     }
   }
 
-  async function onClickUpdate(e) {
+  async function onClickUpdate(event) {
+    event.target.id;
     if (!myContents) {
-      alert("수정된 내용이 없습니다.");
+      alert("내용이 수정되지 않았습니다.");
       return;
     }
     if (!myPassword) {
-      alert("비밀번호를 입력해주세요.");
+      alert("비밀번호가 입력되지 않았습니다.");
       return;
     }
 
@@ -84,7 +85,7 @@ export default function BoardCommentWrite(props) {
         variables: {
           updateBoardCommentInput: { contents: myContents },
           password: myPassword,
-          boardCommentId: e.target.id,
+          boardCommentId: event.target.id,
         },
         refetchQueries: [
           {
@@ -93,9 +94,9 @@ export default function BoardCommentWrite(props) {
           },
         ],
       });
-      props.setIsEdit?.(false);
-    } catch (e) {
-      alert(e.message);
+      // props.setIsEdit?.(false);
+    } catch (error) {
+      alert(error.message);
     }
   }
 
@@ -109,6 +110,7 @@ export default function BoardCommentWrite(props) {
       onClickUpdate={onClickUpdate}
       isEdit={props.isEdit}
       el={props.el}
+      myContents={myContents}
     />
   );
 }

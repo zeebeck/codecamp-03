@@ -1,8 +1,8 @@
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import BoardWriteUI from "./BoardWrite.presenter";
-import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
+import { CREATE_BOARD, UPDATE_BOARD, UPLOAD_FILE } from "./BoardWrite.queries";
 import { IMyUpdateBoardInput } from "./BoardWrite.types";
 
 export default function BoardWrite(props) {
@@ -19,6 +19,9 @@ export default function BoardWrite(props) {
   const [address, setAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
 
+  // const [fileUrls, setFileUrls] = useState(["고양이이미지.png", "", "강아지이미지.png"]); // 이미지 1차 실습
+  const [files, setFiles] = useState<(File | null)[]>([null, null, null]); // 이미지 2차 실습
+
   const [writerError, setWriterError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [titleError, setTitleError] = useState("");
@@ -26,6 +29,7 @@ export default function BoardWrite(props) {
 
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
+  const [uploadFile] = useMutation(UPLOAD_FILE);
 
   function onChangeWriter(event) {
     setWriter(event.target.value);
@@ -132,6 +136,13 @@ export default function BoardWrite(props) {
     }
     if (writer !== "" && password !== "" && title !== "" && contents !== "") {
       try {
+        ////////////////////////////////////////// 이미지 2차 실습 ///////////////////////////////////
+        const uploadFiles = files // [File1, File2, null]
+          .map((el) => (el ? uploadFile({ variables: { file: el } }) : null)); // [ uploadFile({ variables: { file: File1 } }), uploadFile({ variables: { file: File2 } }), null ]
+        const results = await Promise.all(uploadFiles); // await Promise.all([ uploadFile({ variables: { file: File1 } }), uploadFile({ variables: { file: File2 } }), null ])
+        const myImages = results.map((el) => el?.data.uploadFile.url || ""); // ["강아지이미지.png", "고양이이미지.png", ""]
+        ///////////////////////////////////////////////////////////////////////////////////////////
+
         const result = await createBoard({
           variables: {
             createBoardInput: {
@@ -145,10 +156,11 @@ export default function BoardWrite(props) {
                 address: address,
                 addressDetail: addressDetail,
               },
+              // images: [...fileUrls], // 이미지 1차 실습
+              images: myImages, // 이미지 2차 실습
             },
           },
         });
-        // console.log(result.data.createBoard._id)
         router.push(`/boards/${result.data.createBoard._id}`);
       } catch (error) {
         console.log(error);
@@ -159,7 +171,7 @@ export default function BoardWrite(props) {
   async function onClickUpdate() {
     if (
       !title &&
-      !contents &&
+      false &&
       !youtubeUrl &&
       !zipcode &&
       !address &&
@@ -180,6 +192,28 @@ export default function BoardWrite(props) {
         myUpdateboardInput.boardAddress.addressDetail = addressDetail;
     }
 
+    // 1. props.data?.fetchBoard.images // ["토끼이미지.png", "", "거북이이미지.png"]
+    // 2. files // [File1, File2, null] // File1: 강아지이미지파일, File2: 고양이이미지파일
+    ////////////////////////////////////////// 이미지 2차 실습 ///////////////////////////////////
+    const uploadFiles = files // [File1, File2, null]
+      .map((el) => (el ? uploadFile({ variables: { file: el } }) : null)); // [ uploadFile({ variables: { file: File1 } }), uploadFile({ variables: { file: File2 } }), null ]
+    const results = await Promise.all(uploadFiles); // await Promise.all([ uploadFile({ variables: { file: File1 } }), uploadFile({ variables: { file: File2 } }), null ])
+    const nextImages = results.map((el) => el?.data.uploadFile.url || ""); // ["강아지이미지.png", "고양이이미지.png", ""]
+    myUpdateboardInput.images = nextImages;
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
+    // 1. props.data?.fetchBoard.images // ["토끼이미지.png"  , "",              "거북이이미지.png"]
+    // 2. nextImages                    // ["강아지이미지.png",  "고양이이미지.png", ""             ]
+    // 3. myImages                      // ["강아지이미지.png",  "고양이이미지.png", "거북이이미지.png"]
+    ////////////////////////////////////////// 이미지 수정 ///////////////////////////////////
+    if (props.data?.fetchBoard.images?.length) {
+      const prevImages = [...props.data?.fetchBoard.images]; // ["토끼이미지.png", "", "거북이이미지.png"]
+      myUpdateboardInput.images = prevImages.map((el, index) => nextImages[index] || el); // prettier-ignore
+    } else {
+      myUpdateboardInput.images = nextImages;
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
     try {
       const result = await updateBoard({
         variables: {
@@ -194,6 +228,22 @@ export default function BoardWrite(props) {
       alert(err.message);
     }
   }
+
+  //////////////////// 이미지 1차 실습 /////////////////////////////////
+  // function onChangeFileUrls(fileUrl: string, index: number) {
+  //   const newFileUrls = [...fileUrls];    // ["고양이이미지.png", "", ""]
+  //   newFileUrls[index] = fileUrl          // ["고양이이미지.png", "", "강아지이미지.png"]
+  //   setFileUrls(newFileUrls);
+  // }
+  ///////////////////////////////////////////////////////////////////
+
+  //////////////////// 이미지 2차 실습 /////////////////////////////////
+  function onChangeFiles(file: File, index: number) {
+    const newFiles = [...files];
+    newFiles[index] = file;
+    setFiles(newFiles);
+  }
+  ///////////////////////////////////////////////////////////////////
 
   return (
     <BoardWriteUI
@@ -217,6 +267,14 @@ export default function BoardWrite(props) {
       data={props.data}
       address={address}
       zipcode={zipcode}
+      //////////////////// 이미지 1차 실습 /////////////////////
+      // fileUrls={fileUrls}
+      // onChangeFileUrls={onChangeFileUrls}
+      //////////////////////////////////////////////////////
+
+      //////////////////// 이미지 2차 실습 ////////////////////
+      onChangeFiles={onChangeFiles}
+      /////////////////////////////////////////////////////
     />
   );
 }

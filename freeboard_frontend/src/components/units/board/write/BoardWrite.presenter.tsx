@@ -20,10 +20,11 @@ import {
   Youtube,
   Zipcode,
   ZipcodeWrapper,
-  UploadButton,
 } from "./BoardWrite.styles";
 import { Modal } from "antd";
 import DaumPostcode from "react-daum-postcode";
+import Uploads01 from "../../../commons/uploads/01/Uploads01.container";
+import { v4 as uuidv4 } from "uuid";
 
 export default function BoardWriteUI(props) {
   return (
@@ -34,7 +35,7 @@ export default function BoardWriteUI(props) {
         </Modal>
       )}
       <Wrapper>
-        <Title>{props.isEdit ? "게시글 수정" : "게시글 등록"}</Title>
+        <Title>{props.isEdit ? "게시판 수정" : "게시판 등록"}</Title>
         <WriterWrapper>
           <InputWrapper>
             <Label>작성자</Label>
@@ -117,23 +118,28 @@ export default function BoardWriteUI(props) {
         </InputWrapper>
         <ImageWrapper>
           <Label>사진첨부</Label>
-          <UploadButton>
-            {/* <input
-              type="file"
-              style={{ display: "none" }}
-              ref={fileRef}
-            /> */}
-            <div>+</div>
-            <div>Upload</div>
-          </UploadButton>
-          <UploadButton>
-            <div>+</div>
-            <div>Upload</div>
-          </UploadButton>
-          <UploadButton>
-            <div>+</div>
-            <div>Upload</div>
-          </UploadButton>
+          {/* 
+          ////////////// 1차 이미지 실습 ///////////////////////////
+          {props.fileUrls.filter((el) => el).map((el, index) => (
+            <Uploads01
+              key={`${el}_${index}`}
+              index={index}
+              fileUrl={el}
+              onChangeFileUrls={props.onChangeFileUrls}
+            />
+          ))}
+          /////////////////////////////////////////////////////// 
+          */}
+          {/* ////////////// 2차 이미지 실습 /////////////////////////// */}
+          {new Array(3).fill(1).map((el, index) => (
+            <Uploads01
+              key={`${el}_${index}`}
+              index={index}
+              onChangeFiles={props.onChangeFiles}
+              defaultFileUrl={props.data?.fetchBoard.images?.[index]}
+            />
+          ))}
+          {/* ////////////// 2차 이미지 실습 /////////////////////////// */}
         </ImageWrapper>
         <OptionWrapper>
           <Label>메인설정</Label>
@@ -147,7 +153,7 @@ export default function BoardWriteUI(props) {
             <SubmitButton
               onClick={props.onClickSubmit}
               isActive={props.isActive}
-              disabled={!props.isActive}
+              // disabled={!props.isActive}
             >
               등록하기
             </SubmitButton>

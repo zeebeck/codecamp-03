@@ -7,7 +7,7 @@ export const globalStyles = css`
   }
 
   @font-face {
-    font-family: "BTTF";
-    src: url("/fonts/BTTF.ttf");
+    font-family: "live";
+    src: url("/fonts/scifibit.ttf");
   }
 `;

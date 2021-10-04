@@ -99,7 +99,7 @@ export default function BoardCommentListUIItem(props) {
               />
             </OptionWrapper>
           </FlexWrapper>
-          <DateString>{props.el?.createdAt.slice(0, 10)}</DateString>
+          <DateString>{props.el?.createdAt}</DateString>
         </ItemWrapper>
       )}
       {isEdit && (
