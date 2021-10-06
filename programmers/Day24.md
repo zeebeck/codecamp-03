@@ -42,11 +42,16 @@
 
 ```js
 function solution(n) {
-    let result = [0, 1]
-    for(let i = 2; i <= n; i++){
-        result[i] = (result[i-2] + result[i-1]) % 1234567
+    let answer = 0
+    let a = 1
+    let b = 0
+
+    for(let i = 0; i < n; i++) {
+        answer = (a + b) % 1234567
+        a = b
+        b = answer
     }
-    return result[n]
+    return answer;
 }
 ```
 
